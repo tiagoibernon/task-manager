@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Manager | Organize seu dia com mais foco</title>
+    <meta
+      name="description"
+      content="Gerenciador de tarefas moderno e responsivo para organizar prioridades, acompanhar progresso e manter a rotina sob controle."
+    />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#1c4fa1" />
+    <meta name="author" content="Tiago" />
+    <meta name="application-name" content="Task Manager" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Task Manager | Organize seu dia com mais foco" />
+    <meta
+      property="og:description"
+      content="Planeje tarefas, acompanhe pendências e mantenha sua rotina organizada com uma interface moderna e objetiva."
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Task Manager | Organize seu dia com mais foco" />
+    <meta
+      name="twitter:description"
+      content="Gerenciador de tarefas moderno, responsivo e funcional desenvolvido com HTML, CSS e JavaScript Vanilla."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%231c4fa1'/%3E%3Cpath d='M18 33l8 8 20-20' fill='none' stroke='white' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Task Manager",
+        "applicationCategory": "ProductivityApplication",
+        "operatingSystem": "Web",
+        "inLanguage": "pt-BR",
+        "description": "Aplicação web para organizar tarefas, acompanhar progresso e manter a rotina sob controle."
+      }
+    </script>
+  </head>
+  <body>
+    <noscript class="noscript-banner">
+      Este projeto depende de JavaScript para gerenciar as tarefas. Ative o
+      JavaScript no navegador para usar a aplicação.
+    </noscript>
+
+    <div class="page-shell">
+      <!-- Bloco de apresentação com contexto do produto e indicadores rápidos -->
+      <header class="hero">
+        <div class="hero__content">
+          <span class="hero__eyebrow">Task Manager</span>
+          <h1>Planeje seu dia em minutos e mantenha o foco no que importa.</h1>
+          <p>
+            Crie tarefas, acompanhe prioridades e visualize seu progresso em uma
+            interface limpa, responsiva e pronta para uso no dia a dia.
+          </p>
+
+          <div class="hero__actions">
+            <a class="primary-button primary-button--link" href="#taskInput">
+              Criar primeira tarefa
+            </a>
+            <button type="button" class="ghost-button ghost-button--hero" id="heroSampleButton">
+              Ver exemplo rápido
+            </button>
+          </div>
+        </div>
+
+        <section class="stats-panel" aria-label="Resumo das tarefas">
+          <article class="stat-card">
+            <span class="stat-card__label">Total</span>
+            <strong class="stat-card__value" id="totalTasks">0</strong>
+          </article>
+          <article class="stat-card">
+            <span class="stat-card__label">Pendentes</span>
+            <strong class="stat-card__value" id="pendingTasks">0</strong>
+          </article>
+          <article class="stat-card">
+            <span class="stat-card__label">Concluídas</span>
+            <strong class="stat-card__value" id="completedTasks">0</strong>
+          </article>
+        </section>
+      </header>
+
+      <main class="app-card">
+        <!-- Área principal para adicionar novas tarefas -->
+        <section class="composer" aria-labelledby="taskFormTitle">
+          <div class="section-heading">
+            <div>
+              <span class="section-heading__eyebrow">Nova tarefa</span>
+              <h2 id="taskFormTitle">Adicione uma atividade à sua lista</h2>
+            </div>
+            <p id="taskCounter" class="task-counter">Nenhuma tarefa cadastrada</p>
+          </div>
+
+          <form class="task-form" id="taskForm">
+            <label class="sr-only" for="taskInput">Descrição da tarefa</label>
+            <input
+              type="text"
+              id="taskInput"
+              name="task"
+              placeholder="Ex: Finalizar layout da página de portfólio"
+              maxlength="120"
+              autocomplete="off"
+              spellcheck="false"
+              required
+            />
+            <button type="submit" class="primary-button">Adicionar</button>
+          </form>
+
+          <p class="form-helper">
+            Use descrições objetivas e acione Enter para adicionar mais rápido.
+          </p>
+        </section>
+
+        <!-- Busca e filtros ajudam a navegar melhor quando a lista cresce -->
+        <section class="toolbar" aria-label="Controles da lista">
+          <div class="search-field">
+            <label class="sr-only" for="searchInput">Buscar tarefa</label>
+            <input
+              type="search"
+              id="searchInput"
+              placeholder="Buscar tarefa"
+              autocomplete="off"
+              spellcheck="false"
+            />
+          </div>
+
+          <div class="filter-group" aria-label="Filtrar tarefas">
+            <button
+              class="filter-button is-active"
+              type="button"
+              data-filter="all"
+              aria-pressed="true"
+            >
+              Todas
+              <span class="filter-count" id="allCount">0</span>
+            </button>
+            <button
+              class="filter-button"
+              type="button"
+              data-filter="pending"
+              aria-pressed="false"
+            >
+              Pendentes
+              <span class="filter-count" id="pendingCount">0</span>
+            </button>
+            <button
+              class="filter-button"
+              type="button"
+              data-filter="completed"
+              aria-pressed="false"
+            >
+              Concluídas
+              <span class="filter-count" id="completedCount">0</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- Lista renderizada via JavaScript para manter o HTML mais enxuto -->
+        <section class="tasks-section" aria-labelledby="taskListTitle">
+          <div class="section-heading section-heading--compact">
+            <div>
+              <span class="section-heading__eyebrow">Suas tarefas</span>
+              <h2 id="taskListTitle">Lista de atividades</h2>
+            </div>
+          </div>
+
+          <div id="emptyState" class="empty-state" hidden>
+            <div class="empty-state__icon" aria-hidden="true">+</div>
+            <h3>Nenhuma tarefa encontrada</h3>
+            <p id="emptyStateDescription">
+              Adicione uma nova tarefa ou ajuste sua busca e filtros para ver os
+              resultados aqui.
+            </p>
+            <div class="empty-state__actions">
+              <button type="button" class="primary-button" id="emptyStateAction">
+                Criar primeira tarefa
+              </button>
+              <button type="button" class="ghost-button" id="emptyStateSampleButton">
+                Usar tarefa de exemplo
+              </button>
+            </div>
+          </div>
+
+          <ul id="taskList" class="task-list" aria-live="polite"></ul>
+        </section>
+      </main>
+    </div>
+
+    <div class="toast-region" aria-live="polite" aria-atomic="true">
+      <p id="toast" class="toast" hidden></p>
+    </div>
+
+    <!-- Template reutilizável para manter cada item da lista consistente -->
+    <template id="taskItemTemplate">
+      <li class="task-item">
+        <div class="task-item__main">
+          <label class="checkbox-control">
+            <input class="task-toggle" type="checkbox" aria-label="Concluir tarefa" />
+            <span class="checkbox-control__custom"></span>
+          </label>
+
+          <div class="task-content">
+            <p class="task-title"></p>
+            <div class="task-edit-row" hidden>
+              <input
+                class="task-edit-input"
+                type="text"
+                maxlength="120"
+                aria-label="Editar tarefa"
+                spellcheck="false"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="task-item__actions">
+          <button
+            type="button"
+            class="ghost-button task-edit-button"
+            aria-label="Editar tarefa"
+          >
+            Editar
+          </button>
+          <button type="button" class="ghost-button task-save-button" hidden>
+            Salvar
+          </button>
+          <button type="button" class="ghost-button task-cancel-button" hidden>
+            Cancelar
+          </button>
+          <button
+            type="button"
+            class="danger-button task-delete-button"
+            aria-label="Remover tarefa"
+          >
+            Remover
+          </button>
+        </div>
+      </li>
+    </template>
+
+    <script src="script.js"></script>
+  </body>
+</html>
