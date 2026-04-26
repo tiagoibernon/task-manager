@@ -6,7 +6,7 @@ Aplicação web moderna para gerenciamento de tarefas, desenvolvida com foco em 
 
 ## 🚀 Demo
 
-🔗 [Acesse o projeto online](https://task-manager-d7mw8voc9-tiago-dev1.vercel.app/)
+🔗 [Acesse o projeto online](https://task-manager-ten-liard.vercel.app/)
 
 ---
 
